@@ -1,1 +1,42 @@
 /* You can add global styles to this file, and also import other style files */
+/* You can add global styles to this file, and also import other style files */
+/* You can add global styles to this file, and also import other style files */
+.w-100{
+  width: 100%;
+  }
+  .main-content{
+  margin-top: 50px;
+  }
+  .create-new-button{
+  background-color: #198754;
+  border: 1px solid #198754;
+  height: 35px;
+  color: #fff;
+  float: right;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  margin-left: 5px;
+  }
+  .delete-button {
+  height: 35px;
+  color: #fff;
+  float: right;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  border:1px solid red;
+  margin-left: 5px;
+  }
+  .green{
+  color: #198754;
+  }
+  .text-right{
+  text-align: right;
+  }
+.pointer{
+  cursor: pointer;
+  }
+.flex-between{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

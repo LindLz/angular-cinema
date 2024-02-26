@@ -1,1 +1,13 @@
-<p>category-details works!</p>
+<div class="container-fluid">
+  <div class="header">
+      <h1>{{categoryDetails?.title +  ' - details'}}</h1>
+  </div>
+  <div class="category-details">
+      <ng-container *ngIf="categoryDetails.title">
+          <div class="info-details">
+              <label for="title"><b>Title: </b></label>
+              <p>{{categoryDetails?.title}}</p>
+          </div>
+      </ng-container>
+  </div>
+</div>

@@ -1,1 +1,14 @@
-<p>create-category works!</p>
+<div class="create-category-form">
+  <form [formGroup]="createCategoryForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+          <label for="title">Title:</label>
+          <input type="text" id="title" formControlName="title" required>
+          <div *ngIf="createCategoryForm.get('title').touched && createCategoryForm.get('title').errors">
+              <small class="text-danger" *ngIf="createCategoryForm.get('title').errors['required']">
+                  Title is required.
+              </small>
+          </div>
+      </div>
+      <button type="submit" class="btn btn-primary" [disabled]="!createCategoryForm.valid">Create Category</button>
+  </form>
+</div>
