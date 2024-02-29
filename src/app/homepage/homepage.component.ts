@@ -5,11 +5,11 @@ import { Router } from '@angular/router'; // Import Router
 import { NgForm } from '@angular/forms';
 
 @Component({
-  selector: 'app-views',
-  templateUrl: './views.component.html',
-  styleUrls: ['./views.component.css']
+  selector: 'app-homepage',
+  templateUrl: './homepage.component.html',
+  styleUrls: ['./homepage.component.css']
 })
-export class ViewsComponent implements OnInit {
+export class HomepageComponent implements OnInit {
   categoryList: any = [];
   movieList: any = [];
 

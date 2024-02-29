@@ -48,7 +48,7 @@ export class EditCategoryComponent implements OnInit {
         this.categoryService.updateCategory(payload);
         this.editCategoryForm.reset();
         window.alert('Category edited. Click OK to see all categories.');
-        this.router.navigateByUrl('/categories/all-categories');
+        this.router.navigateByUrl('/views/categories/all-categories');
       } catch (error:any) {
         console.error('Error editing category:', error);
         window.alert('Failed to edit category. Please try again.');

@@ -7,9 +7,6 @@ import { EditCategoryComponent } from './components/edit-category/edit-category.
 import { CategoryDetailsComponent } from './components/category-details/category-details.component';
 import { CategoriesRoutingModule } from './categories-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
-
-
 
 @NgModule({
   declarations: [
@@ -22,7 +19,6 @@ import { RouterModule } from '@angular/router';
   imports: [
     CommonModule,
     CategoriesRoutingModule,
-    RouterModule,
     ReactiveFormsModule,
   ]
 })

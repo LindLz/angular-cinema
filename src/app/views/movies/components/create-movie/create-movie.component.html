@@ -1,1 +1,34 @@
-<p>create-movie works!</p>
+<div class="create-movie-form">
+  <form [formGroup]="createMovieForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="title">Title:</label>
+      <input type="text" id="title" formControlName="title" required>
+      <div *ngIf="createMovieForm.get('title')?.touched && createMovieForm.get('title')?.errors">
+        <small class="text-danger" *ngIf="createMovieForm.get('title')?.errors?.['required']">
+          Title is required.
+        </small>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="photoUrl">Image:</label>
+      <input type="file" id="photoUrl" (change)="onFileChange($event)" required>
+      <div *ngIf="createMovieForm.get('photoUrl')?.touched && createMovieForm.get('photoUrl')?.errors">
+        <small class="text-danger" *ngIf="createMovieForm.get('photoUrl')?.errors?.['required']">
+          Image is required.
+        </small>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="category">Category:</label>
+      <select id="category" formControlName="category" required>
+        <option *ngFor="let item of categoryList" [value]="category">{{ category }}</option>
+      </select>
+      <div *ngIf="createMovieForm.get('category')?.touched && createMovieForm.get('category')?.errors">
+        <small class="text-danger" *ngIf="createMovieForm.get('category')?.errors?.['required']">
+          Category is required.
+        </small>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="!createMovieForm.valid">Create Movie</button>
+  </form>
+</div>
