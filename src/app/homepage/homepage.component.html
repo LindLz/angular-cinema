@@ -6,17 +6,17 @@
     <a routerLink="/" class="navbar-brand">Homepage</a>
     <div class="collapse navbar-collapse flex-wrap" id="navbarNav">
       <ul class="navbar-nav mx-auto">
-        <li class="nav-item" *ngFor="let item of categoryList">
-          <a class="nav-link">{{ item.title }}</a>
+        <li class="nav-item" *ngFor="let category of categoryList">
+          <a class="nav-link">{{ category.title }}</a>
         </li>
       </ul>
 
       <ul class="navbar-nav">
         <li class="nav-item">
-          <button class="login-button" (click)="goToMovies()">Movies</button>
+          <button class="navigation-button" (click)="goToMovies()">Movies</button>
         </li>
         <li class="nav-item">
-          <button class="login-button" (click)="goToCategories()">Categories</button>
+          <button class="navigation-button" (click)="goToCategories()">Categories</button>
         </li>
       </ul>
     </div>
@@ -26,12 +26,14 @@
 <div class="container mt-4">
   <div class="row" id="movieCards">
     <div class="col">
-      <div class="col-md-4" *ngFor="let item of movieList">
-        <div class="card mb-3">
-          {{ item?.title }}
-          <img *ngIf="item?.photoUrl" [src]="item.photoUrl" alt="{{ item.title }}">
-          <div class="card-body">
-            <p class="card-text"><b>{{ item.title }}</b></p>
+      <div class="row">
+        <div class="col-md-4" *ngFor="let item of movieList">
+          <div class="card mb-3">
+            <div class="card-body">
+              <h5 class="card-title">{{ item?.title }}</h5>
+              <p class="card-text"><b>{{ item?.categoryTitle }}</b></p>
+            </div>
+            <img *ngIf="item?.photoUrl" [src]="item.photoUrl" class="card-img-top" alt="Movie Image">
           </div>
         </div>
       </div>

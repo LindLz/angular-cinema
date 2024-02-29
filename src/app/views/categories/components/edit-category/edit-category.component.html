@@ -1,10 +1,10 @@
 <div class="edit-category-form">
   <form [formGroup]="editCategoryForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
-          <label for="title">Title:</label>
-          <input type="text" id="title" formControlName="title" required>
-          <div *ngIf="editCategoryForm.get('title').touched && editCategoryForm.get('title').errors">
-              <small class="text-danger" *ngIf="editCategoryForm.get('title').errors['required']">
+          <label for="categoryTitle">Title:</label>
+          <input type="text" id="categoryTitle" formControlName="categoryTitle" required>
+          <div *ngIf="editCategoryForm.get('categoryTitle').touched && editCategoryForm.get('categoryTitle').errors">
+              <small class="text-danger" *ngIf="editCategoryForm.get('categoryTitle').errors['required']">
                   Title is required.
               </small>
           </div>

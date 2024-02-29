@@ -22,7 +22,7 @@ export class EditCategoryComponent implements OnInit {
       this.categoryId = params['categoryId'];
     });
     this.editCategoryForm = new FormGroup({
-      title: new FormControl('', Validators.required),
+      categoryTitle: new FormControl('', Validators.required),
     });
     this.fetchCategoryDetails()
     
@@ -34,7 +34,7 @@ export class EditCategoryComponent implements OnInit {
   }
 
   fillInputs(){
-    this.editCategoryForm.get('title').setValue(this.categoryDetails.title);
+    this.editCategoryForm.get('categoryTitle').setValue(this.categoryDetails.categoryTitle);
   }
 
 
@@ -43,7 +43,7 @@ export class EditCategoryComponent implements OnInit {
       try {
         let payload = {
           id:JSON.parse(this.categoryId),
-          title:this.editCategoryForm.value.title,
+          categoryTitle:this.editCategoryForm.value.categoryTitle,
         }
         this.categoryService.updateCategory(payload);
         this.editCategoryForm.reset();

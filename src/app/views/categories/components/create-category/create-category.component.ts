@@ -15,7 +15,7 @@ export class CreateCategoryComponent implements OnInit {
 
   ngOnInit(): void {
     this.createCategoryForm = new FormGroup({
-      title: new FormControl('', Validators.required),
+      categoryTitle: new FormControl('', Validators.required),
       
     });
   }

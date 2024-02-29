@@ -5,7 +5,7 @@
 }
 
 th {
-  background: #198754;
+  background: #202529;
   color: #fff;
   height: 40px;
 }
@@ -23,7 +23,7 @@ th {
 .delete-modal-header{
   border-bottom: 1px solid lightgrey;
 }
-.delete-modal-header-title{
+.delete-modal-header-categoryTitle{
   padding: 10px;
   margin: 0;
 }

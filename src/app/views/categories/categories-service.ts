@@ -29,7 +29,7 @@ export class CategoryService {
   addCategory(category: any) {
     const categories = this.getCategories();
     const isDuplicate = categories.some(existingCategory =>
-      existingCategory.title === category.title  &&
+      existingCategory.categoryTitle === category.categoryTitle  &&
       existingCategory.info === category.info  &&
       existingCategory.priority === category.priority
     );
@@ -57,13 +57,5 @@ export class CategoryService {
     }
   }
 
-
-  //Function for pagination
-  getCategoriesPage(pageNumber: number, pageSize: number): any[] {
-    const categories = this.getCategories();
-    const startIndex = (pageNumber - 1) * pageSize;
-    const endIndex = startIndex + pageSize;
-    return categories.slice(startIndex, endIndex);
-  }
 
 }

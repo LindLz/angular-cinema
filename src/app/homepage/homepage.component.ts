@@ -16,7 +16,7 @@ export class HomepageComponent implements OnInit {
   constructor(
     private categoryService: CategoryService,
     private movieService: MovieService,
-    private router: Router // Inject Router
+    private router: Router 
   ) { }
 
   ngOnInit(): void {
@@ -30,7 +30,6 @@ export class HomepageComponent implements OnInit {
 
   fetchMovies() {
     this.movieList = this.movieService.getMovies();
-    // Ensure photoUrl is converted to base64 only if available and not already in base64 format
     this.movieList.forEach((movie: any) => {
       if (movie.photoUrl && !movie.photoUrl.includes('data:image')) {
         const base64Data = this.getBase64FromLocalStorage(movie.photoUrl);

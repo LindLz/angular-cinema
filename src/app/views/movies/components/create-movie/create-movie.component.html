@@ -9,22 +9,19 @@
         </small>
       </div>
     </div>
+
     <div class="form-group">
-      <label for="photoUrl">Image:</label>
-      <input type="file" id="photoUrl" (change)="onFileChange($event)" required>
-      <div *ngIf="createMovieForm.get('photoUrl')?.touched && createMovieForm.get('photoUrl')?.errors">
-        <small class="text-danger" *ngIf="createMovieForm.get('photoUrl')?.errors?.['required']">
-          Image is required.
-        </small>
-      </div>
+      <label for="image">Image:</label>
+      <input type="file" id="image" (change)="onFileChange($event)" accept="image/*">
     </div>
+
     <div class="form-group">
-      <label for="category">Category:</label>
-      <select id="category" formControlName="category" required>
-        <option *ngFor="let item of categoryList" [value]="category">{{ category }}</option>
+      <label for="categoryId">Category:</label>
+      <select id="categoryId" formControlName="categoryId" required>
+        <option *ngFor="let category of categoryList" [value]="category.id">{{ category.categoryTitle }}</option>
       </select>
-      <div *ngIf="createMovieForm.get('category')?.touched && createMovieForm.get('category')?.errors">
-        <small class="text-danger" *ngIf="createMovieForm.get('category')?.errors?.['required']">
+      <div *ngIf="createMovieForm.get('categoryId')?.touched && createMovieForm.get('categoryId')?.errors">
+        <small class="text-danger" *ngIf="createMovieForm.get('categoryId')?.errors?.['required']">
           Category is required.
         </small>
       </div>

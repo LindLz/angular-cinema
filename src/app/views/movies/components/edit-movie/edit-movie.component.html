@@ -1,1 +1,31 @@
-<p>edit-movie works!</p>
+<div class="edit-movie-form">
+  <form [formGroup]="editMovieForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="title">Title:</label>
+      <input type="text" id="title" formControlName="title" required>
+      <div *ngIf="editMovieForm.get('title')?.touched && editMovieForm.get('title')?.errors">
+        <small class="text-danger" *ngIf="editMovieForm.get('title')?.errors?.['required']">
+          Title is required.
+        </small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="image">Image:</label>
+      <input type="file" id="image" (change)="onFileChange($event)" accept="image/*">
+    </div>
+
+    <div class="form-group">
+      <label for="categoryId">Category:</label>
+      <select id="categoryId" formControlName="categoryId" required>
+        <option *ngFor="let category of categoryList" [value]="category.id">{{ category.categoryTitle }}</option>
+      </select>
+      <div *ngIf="editMovieForm.get('categoryId')?.touched && editMovieForm.get('categoryId')?.errors">
+        <small class="text-danger" *ngIf="editMovieForm.get('categoryId')?.errors?.['required']">
+          Category is required.
+        </small>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="!editMovieForm.valid">Edit Movie</button>
+  </form>
+</div>

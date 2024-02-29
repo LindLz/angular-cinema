@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { log } from 'console';
 import { MovieService } from '../../movies-service';
+import { CategoryService } from 'src/app/views/categories/categories-service';
+
 
 @Component({
   selector: 'app-all-movies',
@@ -7,52 +10,63 @@ import { MovieService } from '../../movies-service';
   styleUrls: ['./all-movies.component.css']
 })
 export class AllMoviesComponent implements OnInit {
-  movieList: any = [];
+  movieList:any = [];
+  categoryList: any[] = [];
+  deleteMovieModal:boolean = false
+  clickedMovieData:any
 
+  localStorage = localStorage;
 
-
-  deleteMovieModal: boolean = false;
-  clickedMovieData: any;
-
-  constructor(private movieService: MovieService) { }
+  constructor(
+    private movieService:MovieService,
+    private categoryService: CategoryService,
+     ) { }
 
   ngOnInit(): void {
     this.fetchMovies();
-  }
-
-  fetchMovies() {
-    try {
-      this.movieList = this.movieService.getMovies();
-    } catch (error) {
-      console.error('Error fetching movies:', error);
-      // Handle error appropriately (e.g., show error message)
-    }
+    this.fetchCategories();
   }
   
-  getBase64FromLocalStorage(photoUrl: string): string | null {
-    const key = btoa(photoUrl); 
-    return localStorage.getItem(key);
+  fetchMovies() {
+    const movies = this.movieService.getMovies();
+    this.categoryList = this.categoryService.getCategories();
+
+    this.movieList = movies.map((movie) => {
+      const category = this.categoryService.getCategoryById(movie.categoryId);
+      const updatedMovie = {
+        ...movie,
+        categoryTitle: category ? category.categoryTitle : '',
+      };
+
+      console.log('Updated Movie:', updatedMovie);
+
+      return updatedMovie;
+    });
+
   }
 
-  deleteMovie(item: any) {
-    this.clickedMovieData = item;
-    this.deleteMovieModal = true;
+  
+  fetchCategories() {
+    this.categoryList = this.categoryService.getCategories();
+    console.log('Category List:', this.categoryList);
+  }
+ 
+
+  deleteMovie(item:any){
+    this.clickedMovieData = item
+    this.deleteMovieModal = true
   }
 
-  async deleteMovieFromTable(movieId: number) {
-    try {
-      // Perform deletion using the movieService
-      await this.movieService.deleteMovie(movieId);
-      this.fetchMovies(); // Refresh movieList after deletion
-      window.alert('Movie deleted. Click OK to see all movies.');
-      this.deleteMovieModal = false;
-    } catch (error) {
-      console.error('Error deleting movie:', error);
-      // Handle error appropriately (e.g., show error message)
-    }
+  deleteMovieFromTable(movieId: number) {
+    this.movieService.deleteMovie(movieId);
+    this.fetchMovies();
+    window.alert('Movie deleted, Click ok to see all movies')
+    this.deleteMovieModal = false
   }
 
-  closeDeleteMovieModal() {
-    this.deleteMovieModal = false;
+  closeDeleteMovieModal(){
+    this.deleteMovieModal = false
   }
+
+
 }

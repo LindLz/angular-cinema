@@ -1,7 +1,9 @@
+// create-movie.component.ts
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MovieService } from '../../movies-service';
 import { Router } from '@angular/router';
+import { CategoryService } from 'src/app/views/categories/categories-service';
 
 @Component({
   selector: 'app-create-movie',
@@ -10,25 +12,23 @@ import { Router } from '@angular/router';
 })
 export class CreateMovieComponent implements OnInit {
   createMovieForm: FormGroup;
-  categories: string[] = [];
+  categoryList: any[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
     private movieService: MovieService,
+    private categoryService: CategoryService,
     private router: Router
   ) {
     this.createMovieForm = this.formBuilder.group({
       title: ['', Validators.required],
-      photoUrl: ['', Validators.required],
-      category: ['', Validators.required] // Add category control
+      categoryId: ['', Validators.required],
     });
+
+    this.categoryList = this.categoryService.getCategories();
   }
 
-  ngOnInit() {
-    this.movieService.getCategories().subscribe(categories => {
-      this.categories = categories;
-    });
-  }
+  ngOnInit() {}
 
   onFileChange(event: any) {
     const file = event.target.files[0];
@@ -45,11 +45,14 @@ export class CreateMovieComponent implements OnInit {
       try {
         const movieData = this.createMovieForm.value;
         movieData.photoUrl = localStorage.getItem('movieImage');
-        this.movieService.addMovie(movieData);
+        movieData.categoryId = +movieData.categoryId; 
+        const categoryId = movieData.categoryId;
+
+        this.movieService.addMovie(movieData, categoryId);
         this.createMovieForm.reset();
         localStorage.removeItem('movieImage');
         window.alert('Movie created. Click OK to see all movies.');
-        this.router.navigateByUrl('/movies/all-movies');
+        this.router.navigateByUrl('/views/movies/all-movies');
       } catch (error) {
         console.error('Error creating movie:', error);
         window.alert('Failed to create movie. Please try again.');

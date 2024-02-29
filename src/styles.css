@@ -8,8 +8,8 @@
   margin-top: 50px;
   }
   .create-new-button{
-  background-color: #198754;
-  border: 1px solid #198754;
+  background-color: #202529;
+  border: 1px solid #202529;
   height: 35px;
   color: #fff;
   float: right;
@@ -17,6 +17,15 @@
   border-radius: 10px;
   margin-left: 5px;
   }
+  .navigation-button{
+    background-color: #fff;
+    border: 1px solid #fff;
+    height: 35px;
+    color: #202529;
+    float: right;
+    border-radius: 10px;
+    margin-left: 5px;
+    }
   .delete-button {
   height: 35px;
   color: #fff;
@@ -27,7 +36,10 @@
   margin-left: 5px;
   }
   .green{
-  color: #198754;
+  color: #202529;
+  }
+  .green1{
+    color: #198754;
   }
   .text-right{
   text-align: right;

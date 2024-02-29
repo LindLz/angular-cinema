@@ -7,6 +7,7 @@ import { map } from "rxjs/operators";
 })
 export class MovieService {
   private localStorageKey = 'movies';
+  private movies: any[] = [];
 
   constructor() {
     this.initMovies();
@@ -23,10 +24,11 @@ export class MovieService {
     return movies ? JSON.parse(movies) : [];
   }
 
-  addMovie(movie: any) {
+  addMovie(movie: any, categoryId: number,) {
     const movies = this.getMovies();
     const isDuplicate = movies.some(existingMovie =>
-      existingMovie.title === movie.title && existingMovie.photoUrl === movie.photoUrl
+      existingMovie.title === movie.title && existingMovie.photoUrl === movie.photoUrl &&
+      existingMovie.categoryId === categoryId
     );
 
     if (isDuplicate) {
@@ -34,7 +36,8 @@ export class MovieService {
     }
 
     movie.id = new Date().getTime();
-    movies.push({ id: movie.id, title: movie.title });
+    movie.categoryId = categoryId;
+    movies.push( movie);
     localStorage.setItem(this.localStorageKey, JSON.stringify(movies));
   }
 
@@ -44,12 +47,40 @@ export class MovieService {
     localStorage.setItem(this.localStorageKey, JSON.stringify(movies));
   }
 
-  getMovieById(movieId: number): any {
-    const movies = this.getMovies();
-    return movies.find(movie => movie.id === movieId);
-  }
+  getMovieById(MovieId: number, categoryList?: any[]): any {
+    console.log('Requested Movie ID:', MovieId);
 
-  updateMovie(updatedMovie: any) {
+    const movies = this.getMovies();
+    console.log('All Movies:', movies);
+
+    const movie = movies.find(t => t.id === MovieId);
+    console.log('Movie Found:', movie);
+
+    if (!movie) {
+      console.error(`Movie with ID ${MovieId} not found.`);
+      return null;
+    }
+
+    if (categoryList) {
+      console.log('Category List:', categoryList);
+
+      const category = categoryList.find(u => u.id === movie.categoryId);
+      console.log('Category Found:', category);
+
+      if (category) {
+        const MoviewithCategoryName = { ...movie, categoryName: category.categoryName };
+        console.log('Movie with Category Name:', MoviewithCategoryName);
+        return MoviewithCategoryName;
+      } else {
+        console.error(`Category with ID ${movie.categoryId} not found.`);
+        return movie; 
+      }
+    }
+  
+    return movie;
+}
+
+  updateMovie(updatedMovie: any, categoryId: number) {
     let movies = this.getMovies();
     const index = movies.findIndex(movie => movie.id === updatedMovie.id);
     if (index !== -1) {
@@ -58,9 +89,8 @@ export class MovieService {
     }
   }
 
-  // Method to fetch categories
+
   getCategories(): Observable<string[]> {
-    // Assuming categories are stored in localStorage for now
     const movies = this.getMovies();
     const categories = new Set<string>();
 
